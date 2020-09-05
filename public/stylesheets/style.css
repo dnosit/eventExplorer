@@ -1,6 +1,22 @@
+* {
+  font-family: "Times New Roman", Times, serif;
+}
+
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 1em;
+}
+
+h1 {
+  font: 3em; 
+  text-align: center;
+  color: rgb(6, 70, 6);
+}
+
+h2 {
+  font: 2em;
+  text-align: center;
+  color: rgb(0, 150, 0);
 }
 
 a {
