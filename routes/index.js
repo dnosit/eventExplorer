@@ -9,8 +9,10 @@ router.get('/', (req, res) => {
 
   axios.get(bccEventsURL)
     .then( (response) => {
-      const rsp = response.data; 
-      res.render('index', { rsp }); 
+      const {data} = response;
+      const allEvents = data; // array of each event data
+      // const allEventTitles = allEvents.title;
+      res.render('index', { events: allEvents }); 
     })
     .catch( (error) => {
       res.render('error', { error });

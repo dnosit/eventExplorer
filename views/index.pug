@@ -4,3 +4,10 @@ block content
   h1 Brisbane Events Explorer
   h2 Find events for you!
   p Select your desired options belowe to ensure you're always at the best event, at the optimum time. 
+  ul Filters: 
+    li No rain
+    li No UV protection required
+  p Events shown below:
+  each event in events
+    .eventDiv 
+      button.eventTitle #{event.title}
