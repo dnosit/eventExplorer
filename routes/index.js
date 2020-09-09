@@ -12,6 +12,7 @@ router.get('/', (req, res) => {
       const {data} = response;
       const allEvents = data; // array of each event data
       const eventsThisWeek = getEventsThisWeekInOrder(allEvents); 
+      
       res.render('index', { events: eventsThisWeek }); 
     })
     .catch( (error) => {
@@ -19,14 +20,21 @@ router.get('/', (req, res) => {
     })
 });
 
+
+// HELPER FUNCTIONS -  MOVE LATER 
+function getEventsByType(type){
+  const eventsOfType = [];
+
+}
+
 function getEventsThisWeekInOrder(events){
   const millisecondsInWeek = 604800000; 
-  let dateNowTimeStamp = Date.now(); // UNIX milliseconds 
-  let datePlusWeekTimeStamp = dateNowTimeStamp + millisecondsInWeek; 
-  let eventsThisWeek = []; 
+  const dateNowTimeStamp = Date.now(); // UNIX milliseconds 
+  const datePlusWeekTimeStamp = dateNowTimeStamp + millisecondsInWeek; 
+  const eventsThisWeek = []; 
   for (let event of events){
-    let eventStartTimeStamp = Date.parse(event.startDateTime); 
-    let eventEndDateTimeStamp = Date.parse(event.endDateTime); 
+    const eventStartTimeStamp = Date.parse(event.startDateTime); 
+    const eventEndDateTimeStamp = Date.parse(event.endDateTime); 
     // check for events that start within the next week
     if ( dateNowTimeStamp <= eventStartTimeStamp && eventStartTimeStamp <= datePlusWeekTimeStamp ) {
       eventsThisWeek.push(event);
@@ -41,5 +49,8 @@ function getEventsThisWeekInOrder(events){
   });
   return eventsThisWeek;
 };
+
+
+// END HELPER FUNCTIONS 
 
 module.exports = router;
