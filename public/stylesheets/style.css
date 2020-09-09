@@ -1,24 +1,82 @@
 * {
-  font-family: "Times New Roman", Times, serif;
+  font-family: Helvetica, Verdana, sans-serif;
 }
 
 body {
-  padding: 50px;
-  font: 1em;
+  padding: 2em;
 }
 
 h1 {
-  font: 3em; 
+  font-family: "Times New Roman", Times, serif;
+  font-size: 3em; 
   text-align: center;
   color: rgb(6, 70, 6);
 }
 
 h2 {
-  font: 2em;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 2em;
   text-align: center;
   color: rgb(0, 150, 0);
+  margin-bottom: 2em;
 }
+
+h3 {
+  font-size: 1.2em;
+  margin: 0.5em;
+  padding: 0.5em;
+}
+
+/* NAVIGATION */ 
+ul, li {
+  width: 70%;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+ul {
+  list-style-type: none; 
+  margin: 1em;
+  padding: 1em;
+  align-items: center;
+}
+
+li:first-child{
+  border-top: 0.1em solid rgb(223, 178, 141);
+}
+
+li {
+  border-bottom: 0.1em solid rgb(223, 178, 141);
+  text-align: center;
+  font: 1em Helvetica, Verdana, sans-serif;
+}
+
 
 a {
   color: #00B7FF;
+}
+
+/*  TABLES */ 
+
+table th{
+  color: whitesmoke;
+  background-color: rgb(12, 64, 105);
+}
+
+table td{
+  color: rgb(0, 55, 97);
+}
+
+table tr:nth-child(even) {
+  background-color: gainsboro;
+}
+
+table {
+  border-radius: 1em;
+  border-collapse:collapse;
+  overflow: hidden;
+  text-align:center;
+  border: 0.1em solid rgb(97, 97, 150);
+  font-size: 1em;
+  box-shadow: 0 0px 40px 0px rgba(0, 0.2, 0.2, 0.2);
 }
