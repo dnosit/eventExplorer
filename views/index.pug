@@ -11,33 +11,27 @@ block content
 
   table(style='width:100%', border='1')
     tr
-      th Title
-      th Date 
+      th Event
+      th Starts
+      th Ends
       th Image
       each event in events
-        //- button.eventTitle #{event.title} 
-        //-WORKS: - var eventImageObj = JSON.stringify(event.eventImage) 
-        //- Make sure that eventImage is not null
-        if event.eventImage != NULL
-          - const eventImageObjString = JSON.stringify(event.eventImage)
-          - const eventImageObj = JSON.parse(eventImageObjString)
-          - const eventImageUrl = JSON.stringify(eventImageObj.url);
-          //- temporarily display image url text 
-          //- p #{eventImageUrl}
-          
-          //- For some reason Pug/Node transforms this absolute value: 
-          //- http://www.trumba.com/i/DgDhxtvzZEBEz%2AjAEUDofPUE.jpeg
-          //- to this relative value: 
-          //- http://localhost:3000/%22http://www.trumba.com/i/DgDhxtvzZEBEz%2AjAEUDofPUE.jpeg%22 
-          tr
-            td #{event.title}
-            td Date 
-            td(scope="row")
-              if eventImageUrl
-                img.image(src=eventImageUrl)
-                p #{eventImageUrl}
-              else
-                div Image not found
+        tr
+          td 
+            button.eventTitle #{event.title} 
+          td #{event.startDateTime}
+          td #{event.endDateTime}
+          td
+            //- Make sure that eventImage is not null
+            if event.eventImage != NULL
+              - const eventImageObjString = JSON.stringify(event.eventImage)
+              - const eventImageObj = JSON.parse(eventImageObjString)
+              - const eventImageUrl = JSON.stringify(eventImageObj.url);
+              img.image(src=eventImageUrl)
+              //- Temporarily add image url in to cell below
+              p #{eventImageUrl}
+            else
+              div Image not found
 
 
 
