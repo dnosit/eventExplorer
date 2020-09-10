@@ -3,7 +3,7 @@ extends layout
 block content
   h1 Brisbane Events Explorer
   h2 Find events for you!
-  h3 Select your desired options below to ensure you're always at the best event, at the optimum time. 
+  h3 Select your desired options below to ensure you're always at the best event in Brisvegas, at prime time. 
   ul Filters
     li Event type
     li No rain
@@ -12,16 +12,20 @@ block content
   table(style='width:100%', border='1')
     tr
       th Event
-      th Starts
-      th Ends
+      th Times
+      th Information
       th Image
       each event in events
         tr
-          td 
-            button.eventTitle #{event.title} 
-          td #{event.startDateTime}
-          td #{event.endDateTime}
+          td.eventTitle #{event.title} 
           td
+            p Starts: #{event.startDateTime}
+            p Ends: #{event.endDateTime}
+          td 
+            p !{event.description} 
+            br
+            p !{event.webLink}
+          td 
             //- Make sure that eventImage is not null
             if event.eventImage != NULL
               - const eventImageObjString = JSON.stringify(event.eventImage)

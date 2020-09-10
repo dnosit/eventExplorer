@@ -12,7 +12,6 @@ router.get('/', (req, res) => {
       const {data} = response;
       const allEvents = data; // array of each event data
       const eventsThisWeek = getEventsThisWeekInOrder(allEvents); 
-      
       res.render('index', { events: eventsThisWeek }); 
     })
     .catch( (error) => {
@@ -23,6 +22,7 @@ router.get('/', (req, res) => {
 
 // HELPER FUNCTIONS -  MOVE LATER 
 function getEventsByType(type){
+  // TODO - below
   const eventsOfType = [];
 
 }
