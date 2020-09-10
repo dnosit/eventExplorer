@@ -30,8 +30,9 @@ block content
             if event.eventImage != NULL
               - const eventImageObjString = JSON.stringify(event.eventImage)
               - const eventImageObj = JSON.parse(eventImageObjString)
-              - const eventImageUrl = JSON.stringify(eventImageObj.url);
-              img.image(src=eventImageUrl)
+              - let eventImageUrl = JSON.stringify(eventImageObj.url);
+              - let eventImageUrlCleaned = eventImageUrl.replace(/"/g, ""); //- remove double quotes from URL
+              img.image(src=eventImageUrlCleaned) 
               //- Temporarily add image url in to cell below
               p #{eventImageUrl}
             else
