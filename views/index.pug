@@ -1,5 +1,40 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1 Brisbane Events Explorer
+  h2 Find events for you!
+  h3 Select your desired options below to ensure you're always at the best event in Brisvegas, at prime time. 
+  ul Filters
+    li Event type
+    li No rain
+    li UV protection not required
+  p Up to 200 events shown below
+  table
+    tr
+      th Event
+      th Time
+      th Image
+      th Information
+      each event in events
+        tr
+          td.eventTitle #{event.title} 
+          td
+            p Starts: #{event.startDateTime}
+            p Ends: #{event.endDateTime}
+          td 
+            if event.eventImage != NULL //- Make sure that eventImage is not null
+              - const eventImageObjString = JSON.stringify(event.eventImage)
+              - const eventImageObj = JSON.parse(eventImageObjString)
+              - let eventImageUrl = JSON.stringify(eventImageObj.url);
+              - let eventImageUrlCleaned = eventImageUrl.replace(/"/g, ""); //- remove double quotes from URL
+              img.image(src=eventImageUrlCleaned) 
+            else
+              div Image not found
+          td 
+            p !{event.description} 
+            br
+            p !{event.webLink}
+
+
+
+
