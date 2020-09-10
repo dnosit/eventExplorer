@@ -8,21 +8,19 @@ block content
     li Event type
     li No rain
     li UV protection not required
-  p Up to 200 events shown below
+    li None
+  p Up to 200 events shown, as per filters
   table
     tr
       th Event
       th Time
-      th Image
       th Information
       each event in events
         tr
-          td.eventTitle #{event.title} 
           td
-            p Starts: #{event.startDateTime}
-            p Ends: #{event.endDateTime}
-          td 
-            if event.eventImage != NULL //- Make sure that eventImage is not null
+            h4 !{event.title} 
+            if event.eventImage != NULL 
+              //- Make sure that eventImage is not null
               - const eventImageObjString = JSON.stringify(event.eventImage)
               - const eventImageObj = JSON.parse(eventImageObjString)
               - let eventImageUrl = JSON.stringify(eventImageObj.url);
@@ -30,6 +28,9 @@ block content
               img.image(src=eventImageUrlCleaned) 
             else
               div Image not found
+          td
+            p Starts: #{event.startDateTime}
+            p Ends: #{event.endDateTime}
           td 
             p !{event.description} 
             br
