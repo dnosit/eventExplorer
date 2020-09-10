@@ -9,12 +9,12 @@ block content
     li No rain
     li UV protection not required
   p Up to 200 events shown below
-  table(style='width:100%', border='1')
+  table
     tr
       th Event
-      th Times
-      th Information
+      th Time
       th Image
+      th Information
       each event in events
         tr
           td.eventTitle #{event.title} 
@@ -22,21 +22,19 @@ block content
             p Starts: #{event.startDateTime}
             p Ends: #{event.endDateTime}
           td 
-            p !{event.description} 
-            br
-            p !{event.webLink}
-          td 
-            //- Make sure that eventImage is not null
-            if event.eventImage != NULL
+            if event.eventImage != NULL //- Make sure that eventImage is not null
               - const eventImageObjString = JSON.stringify(event.eventImage)
               - const eventImageObj = JSON.parse(eventImageObjString)
               - let eventImageUrl = JSON.stringify(eventImageObj.url);
               - let eventImageUrlCleaned = eventImageUrl.replace(/"/g, ""); //- remove double quotes from URL
               img.image(src=eventImageUrlCleaned) 
-              //- Temporarily add image url in to cell below
-              p #{eventImageUrl}
             else
               div Image not found
+          td 
+            p !{event.description} 
+            br
+            p !{event.webLink}
+
 
 
 
