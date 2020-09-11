@@ -8,17 +8,22 @@ block content
     li Event type
     li No rain
     li UV protection not required
-    li None
+    li Show 
+      select.selectShow
+        option All
+        option 10 
+        option 20 
+      |  events
   p Up to 200 events shown, as per filters
-  table.table
+  table.tableOfEvents
     tr.tableHeaderRow
       th Event
       th Time
       th Details
       each event in events
-        tr.tableDataRow
+        tr(id = event.eventID)
           td
-            h4 !{event.title} 
+            h4 !{event.title}  
             if event.eventImage != NULL 
               //- Make sure that eventImage is not null
               - const eventImageObjString = JSON.stringify(event.eventImage)
@@ -36,6 +41,7 @@ block content
             br
             p !{event.webLink}
 
+  script(src='/javascripts/filter.js')
 
 
 

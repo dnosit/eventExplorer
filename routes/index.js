@@ -4,7 +4,7 @@ const router = express.Router();
 
 /* GET home page. */
 router.get('/', (req, res) => {
-  // JSON format returns the next 200 evernts 
+  // JSON format returns the next 200 events 
   const bccEventsURL = "http://www.trumba.com/calendars/brisbane-city-council.json";
 
   axios.get(bccEventsURL)
