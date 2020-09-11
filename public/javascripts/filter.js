@@ -1,23 +1,34 @@
+
 // Fetch the summary of the article from our Express API
 const fetchFilteredEvents = (event) => {
     const filter = event.target.textContent;
   
+    removeExistingElements();
+
     fetch(`/user-api/filter/${filter}`)
       .then((res) => res.json())
+
       .then((data) => {
-        const parent = event.target.parentElement;
-        const p = document.createElement("p");
-        p.textContent = data.filter;
-        parent.append(p);
+        
+
+
+        // update elements
+
+        
+
       })
       .catch((error) => console.log(error));
-  };
-  
-  
-  // add event listener for each drop-down option 
-  const filtersSelected = document.getElementsByClassName("selectShow");
-  
-  for (let filter of filtersSelected) {
-    filter.addEventListener("click", (event) => fetchFilteredEvents(event));
-  }
-  
+};
+
+// add event listener for each drop-down filter option 
+const filterSelected = document.getElementsByClassName("selectShow");
+
+for (let filter of filterSelected) {
+    filter.addEventListener("click", removeExistingElements() );
+}
+
+
+function removeRowById(Id){
+    let row = document.getElementById(Id);
+    row.parentNode.removeChild(row);
+};

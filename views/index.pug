@@ -15,31 +15,33 @@ block content
         option 20 
       |  events
   p Up to 200 events shown, as per filters
-  table.tableOfEvents
-    tr.tableHeaderRow
-      th Event
-      th Time
-      th Details
-      each event in events
-        tr(id = event.eventID)
-          td
-            h4 !{event.title}  
-            if event.eventImage != NULL 
-              //- Make sure that eventImage is not null
-              - const eventImageObjString = JSON.stringify(event.eventImage)
-              - const eventImageObj = JSON.parse(eventImageObjString)
-              - let eventImageUrl = JSON.stringify(eventImageObj.url);
-              - let eventImageUrlCleaned = eventImageUrl.replace(/"/g, ""); //- remove double quotes from URL
-              img.image(src=eventImageUrlCleaned) 
-            else
-              div Image not found
-          td
-            p Starts: !{event.startDateTime.replace(/T/g, "<br>")}
-            p Ends: !{event.endDateTime.replace(/T/g, "<br>")}
-          td 
-            p !{event.description} 
-            br
-            p !{event.webLink}
+  table#tableOfEvents
+    thead.tableHead
+      tr.tableHeaderRow
+        th Event
+        th Time
+        th Details
+        tbody.tableBody
+          each event in events
+            tr(id = event.eventID)
+              td
+                h4 !{event.title}  
+                if event.eventImage != NULL 
+                  //- Make sure that eventImage is not null
+                  - const eventImageObjString = JSON.stringify(event.eventImage)
+                  - const eventImageObj = JSON.parse(eventImageObjString)
+                  - let eventImageUrl = JSON.stringify(eventImageObj.url);
+                  - let eventImageUrlCleaned = eventImageUrl.replace(/"/g, ""); //- remove double quotes from URL
+                  img.image(src=eventImageUrlCleaned) 
+                else
+                  div Image not found
+              td
+                p Starts: !{event.startDateTime.replace(/T/g, "<br>")}
+                p Ends: !{event.endDateTime.replace(/T/g, "<br>")}
+              td 
+                p !{event.description} 
+                br
+                p !{event.webLink}
 
   script(src='/javascripts/filter.js')
 
