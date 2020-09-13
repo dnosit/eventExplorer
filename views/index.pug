@@ -5,15 +5,22 @@ block content
   h2 Find events for you!
   h3 Select your desired options below to ensure you're always at the best event in Brisvegas, at prime time. 
   ul Filters
-    li Event type
-    li No rain
-    li UV protection not required
-    li Show 
-      select.selectShow
-        option All
-        option 10 
-        option 20 
-      |  events
+    li Event type is 
+      select.selectType
+        option ANY
+        option FITNESS
+    li It 
+      select.selectRain
+        option CAN
+        option CAN'T
+      |  rain 
+    li UV protection 
+      select.selectUV 
+        option IS
+        option NOT
+      |  required
+    li
+      button.resetFilters Reset
   p Up to 200 events shown, as per filters
   table#tableOfEvents
     thead.tableHead

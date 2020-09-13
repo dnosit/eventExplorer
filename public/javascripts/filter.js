@@ -1,26 +1,25 @@
-
 // Fetch the summary of the article from our Express API
 const fetchFilteredEvents = (event) => {
-    const filter = event.target.textContent;
-  
+    const filters = event.target.textContent;
 
-    fetch(`/user-api/filter/${filter}`)
-      .then((res) => res.json())
 
-      .then((data) => {
-        
-        // update elements
-
-      })
-      .catch((error) => console.log(error));
+    fetch(`/userApi/filter/${filters}`)
+        .then(res => res.json())
+        .then((data) => {
+            const eventsFiltered = data.events;
+            // update elements
+            removeRowsNotRequired(eventsFiltered)
+        })
+        .catch((error) => console.log(error));
 };
 
 
+/*
 // TODO remove below later
 function returnRowDummyList(){
     return ["147278572", "147782485", "147454127", "146421295", "145562147", "141019107"];
 }
-
+*/
 
 // takes array of id strings that should be displayed
 // deletes all current elements from DOM not in given array 
@@ -47,15 +46,29 @@ function removeRowsNotRequired(idListOfRows){
 };
 
 
-/*
-// add event listener for each drop-down filter option 
-const filterSelected = document.getElementsByClassName("selectShow");
 
-for (let filter of filterSelected) {
-    filter.addEventListener("click", removeRowsNotRequired(returnRowList()) );
+// EVENT LISTENERS 
+//  RESET filters
+const resetFilters = document.getElementsByClassName("resetFilters");
+for (let filter of resetFilters) {
+    filter.addEventListener("click", (event) => fetchFilteredEvents(event));
 }
-*/
 
+// SELECTED filters 
+
+// #4 - Type 
+const selectType = document.getElementsByClassName("selectType");
+for (let filter of selectType) {
+    filter.addEventListener("click", (event) => fetchFilteredEvents(event));
+}
+
+
+function sendUpdatedFiltersSelected(){
+    const filtersSelected = {};
+    filtersSelected[0] = selectType.value;
+
+    fetchFilteredEvents(filtersSelected);
+}
 
 
 

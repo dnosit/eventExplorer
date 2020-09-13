@@ -11,8 +11,8 @@ router.get('/', (req, res) => {
     .then( (response) => {
       const {data} = response;
       const allEvents = data; // array of each event data
-      const eventsThisWeek = getEventsThisWeekInOrder(allEvents); 
-      res.render('index', { events: eventsThisWeek }); 
+      // const eventsThisWeek = getEventsThisWeekInOrder(allEvents); 
+      res.render('index', { events: allEvents }); 
     })
     .catch( (error) => {
       res.render('error', { error });
@@ -26,6 +26,8 @@ function getEventsByType(type){
   const eventsOfType = [];
 
 }
+
+
 
 function getEventsThisWeekInOrder(events){
   const millisecondsInWeek = 604800000; 
