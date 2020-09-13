@@ -3,78 +3,58 @@
 const fetchFilteredEvents = (event) => {
     const filter = event.target.textContent;
   
-    // removeExistingElements();
 
     fetch(`/user-api/filter/${filter}`)
       .then((res) => res.json())
 
       .then((data) => {
         
-
-
         // update elements
-
-        
 
       })
       .catch((error) => console.log(error));
 };
 
 
-
-function returnRowList(){
-    return ["147278572", "147782485", "147454127"];
+// TODO remove below later
+function returnRowDummyList(){
+    return ["147278572", "147782485", "147454127", "146421295", "145562147", "141019107"];
 }
 
 
-
-
-
-// checks and removes elements not longer required on page
+// takes array of id strings that should be displayed
+// deletes all current elements from DOM not in given array 
 function removeRowsNotRequired(idListOfRows){
-
-    // existing table including header row
-    let tableOfEvents =document.getElementById("tableOfEvents"); 
+    // Current DOM elements
+    let tableOfEvents = document.getElementById("tableOfEvents"); 
     let tableRows = tableOfEvents.rows; 
-    let tableRowCount = tableRows.length;
-
-    // 
-    console.log(tableRowCount);
-    console.log(idListOfRows);
-
-    // elements of the DOM
+    // Save row ID's to delete
+    let rowsToDeleteByID = []
     for ( let row of tableRows){
-
-        //console.log(currentID); 
-        if ( row.id != "tableHeaderRow"  ) {
-            console.log(currentID);
-            // remove from DOM table
-            tableOfEvents.deleteRow(row.rowIndex);
-            // removeRowById(currentID);
+        let currentRowID = row.id;
+        if ( currentRowID != "tableHeaderRow" ) {
+            if ( !(idListOfRows.includes(currentRowID)) ){
+                // This row need to be deleted, add to list 
+                rowsToDeleteByID.push(currentRowID);
+            }
         }
-        else {
-            // remove from DOM
-            //removeRowById(currentID);
-        }
-
-
     }
-    
-
-
+    // remove rows on hit list from DOM 
+    for (let rowID of rowsToDeleteByID){
+        let row = document.getElementById(rowID);
+        row.parentNode.removeChild(row);
+    }
 };
 
 
-
-
-
+/*
 // add event listener for each drop-down filter option 
 const filterSelected = document.getElementsByClassName("selectShow");
 
 for (let filter of filterSelected) {
     filter.addEventListener("click", removeRowsNotRequired(returnRowList()) );
 }
-
+*/
 
 
 
