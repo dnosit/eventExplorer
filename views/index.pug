@@ -6,19 +6,19 @@ block content
   h3 Select your desired options below to ensure you're always at the best event in Brisvegas, at prime time. 
   ul Filter by requirements
     li Event is: 
-      select.selectType
-        option ANY-TYPE
-        option FITNESS
+      select.select
+        option(value="ANY") any type. 
+        option(value="FIT") fitness. 
     li High probability of: 
-      select.selectRain
-        option RAIN-OKAY
-        option NO-RAIN
-    li UV protection: 
-      select.selectUV 
-        option UV-OKAY
-        option NO-UV
+      select.select
+        option(value="RAIN") rain is okay.
+        option(value="NO-RAIN") no rain please!
+    li UV protection required: 
+      select.select
+        option(value="UV") is okay, I have a hat.
+        option(value="NO-UV") is not an option with my new hair. 
     li
-      button.resetFilters RESET
+      button.resetFilters(value="RESET") Reset
   p Up to 200 events shown, as per filters
   table#tableOfEvents
     thead.tableHead

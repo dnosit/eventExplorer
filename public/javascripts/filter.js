@@ -1,6 +1,6 @@
 // Fetch the summary of the article from our Express API
 const fetchFilteredEvents = (event) => {
-    const filters = event.target.textContent;
+    const filters = event.target.value;
 
     if ( filters == "RESET" ) {
         // Refresh table with all updated events 
@@ -22,7 +22,6 @@ const fetchFilteredEvents = (event) => {
         .catch((error) => console.log(error));
     }
 };
-
 
 
 // takes array of id strings that should be displayed
@@ -49,33 +48,19 @@ function removeRowsNotRequired(idListOfRows){
     }
 };
 
-
-
-
-
 // EVENT LISTENERS 
 //
 //  RESET filters Button 
 const resetFilters = document.getElementsByClassName("resetFilters");
 resetFilters[0].addEventListener("click", (event) => fetchFilteredEvents(event));
 
-
 // SELECTED filters 
 // 
-//  - Type 
-const selectType = document.getElementsByClassName("selectType");
-for (let filter of selectType) {
-    filter.addEventListener("click", (event) => fetchFilteredEvents(event));
+const select = document.getElementsByClassName("select");
+for (let filter of select) {
+    filter.addEventListener("change", (event) => fetchFilteredEvents(event));
 }
 
-
-function sendUpdatedFiltersSelected(){
-    const filtersSelected = {};
-    filtersSelected[0] = selectType.value;
-
-
-    fetchFilteredEvents(filtersSelected);
-}
 
 
 
