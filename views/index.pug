@@ -4,23 +4,21 @@ block content
   h1 Brisbane Events Explorer
   h2 Find events for you!
   h3 Select your desired options below to ensure you're always at the best event in Brisvegas, at prime time. 
-  ul Filters
-    li Event type is 
+  ul Filter by requirements
+    li Event is: 
       select.selectType
-        option ANY
+        option ANY-TYPE
         option FITNESS
-    li It 
+    li High probability of: 
       select.selectRain
-        option CAN
-        option CAN'T
-      |  rain 
-    li UV protection 
+        option RAIN-OKAY
+        option NO-RAIN
+    li UV protection: 
       select.selectUV 
-        option IS
-        option NOT
-      |  required
+        option UV-OKAY
+        option NO-UV
     li
-      button.resetFilters Reset
+      button.resetFilters RESET
   p Up to 200 events shown, as per filters
   table#tableOfEvents
     thead.tableHead

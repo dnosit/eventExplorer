@@ -2,24 +2,28 @@
 const fetchFilteredEvents = (event) => {
     const filters = event.target.textContent;
 
-
-    fetch(`/userApi/filter/${filters}`)
+    if ( filters == "RESET" ) {
+        // Refresh table with all updated events 
+        window.location.reload()
+        // TODO - refine to only reload table 
+        // tableElements = document.getElementById("tableOfEvents");
+        // tableElements.location.reload(true);
+    }
+    else {
+        fetch(`/userApi/filter/${filters}`)
         .then(res => res.json())
         .then((data) => {
             const eventsFiltered = data.events;
-            // update elements
-            removeRowsNotRequired(eventsFiltered)
+
+        // update elements as required 
+        removeRowsNotRequired(eventsFiltered)
+
         })
         .catch((error) => console.log(error));
+    }
 };
 
 
-/*
-// TODO remove below later
-function returnRowDummyList(){
-    return ["147278572", "147782485", "147454127", "146421295", "145562147", "141019107"];
-}
-*/
 
 // takes array of id strings that should be displayed
 // deletes all current elements from DOM not in given array 
@@ -47,16 +51,18 @@ function removeRowsNotRequired(idListOfRows){
 
 
 
+
+
 // EVENT LISTENERS 
-//  RESET filters
+//
+//  RESET filters Button 
 const resetFilters = document.getElementsByClassName("resetFilters");
-for (let filter of resetFilters) {
-    filter.addEventListener("click", (event) => fetchFilteredEvents(event));
-}
+resetFilters[0].addEventListener("click", (event) => fetchFilteredEvents(event));
+
 
 // SELECTED filters 
-
-// #4 - Type 
+// 
+//  - Type 
 const selectType = document.getElementsByClassName("selectType");
 for (let filter of selectType) {
     filter.addEventListener("click", (event) => fetchFilteredEvents(event));
@@ -66,6 +72,7 @@ for (let filter of selectType) {
 function sendUpdatedFiltersSelected(){
     const filtersSelected = {};
     filtersSelected[0] = selectType.value;
+
 
     fetchFilteredEvents(filtersSelected);
 }
