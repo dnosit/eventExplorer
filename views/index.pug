@@ -4,22 +4,23 @@ block content
   h1 Brisbane Events Explorer
   h2 Find events for you!
   h3 Select your desired options below to ensure you're always at the best event in Brisvegas, at prime time. 
-  ul Filter
-    li Event is: 
+  ul Filter events:
+    li Type is: 
       select.select
         option(value="ANY") any type. 
         option(value="FIT") fitness. 
-    li Higher probability of: 
+    li Max chance of rain: 
       select.select
-        option(value="RAIN") rain is okay.
-        option(value="NO-RAIN") no rain please!
-    li UV protection required: 
-      select.select
-        option(value="UV") is okay, I have a hat.
-        option(value="NO-UV") is not an option with my new hair. 
+          option(value=100) 100 
+          option(value=50) 50
+          option(value=20) 20
+          option(value=10) 10
+          option(value=5) 5
+          option(value=0) 0
+      | (%) 
     li
       button.resetFilters(value="RESET") Reset
-  p#eventCount Events currently shown: !{events.length} (Max for this week)
+  p#eventCount Current Events: !{events.length} (Max for this week)
   table#tableOfEvents
     thead.tableHead
       tr#tableHeaderRow

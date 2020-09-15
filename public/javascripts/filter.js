@@ -14,8 +14,10 @@ const fetchFilteredEvents = (event) => {
         .then(res => res.json())
         .then((data) => {
             const eventsFilteredArr = data.events;
-        // update elements as required 
-        removeRowsNotRequired(eventsFilteredArr)
+            // update elements as required 
+            removeRowsNotRequired(eventsFilteredArr)
+            // update count 
+            updateCount();
         })
         .catch((error) => console.log(error));
     }
@@ -26,7 +28,7 @@ const fetchFilteredEvents = (event) => {
 // deletes all current elements from DOM not in given array 
 function removeRowsNotRequired(idListOfRows){
     // Current DOM elements
-    let tableOfEvents = document.getElementById("tableOfEvents"); 
+    const tableOfEvents = document.getElementById("tableOfEvents"); 
     let tableRows = tableOfEvents.rows; 
     // Save row ID's to delete
     let rowsToDeleteByID = []
@@ -46,6 +48,13 @@ function removeRowsNotRequired(idListOfRows){
         row.parentNode.removeChild(row);
     }
 };
+
+// Update count
+function updateCount(){
+    const tableOfEvents = document.getElementById("tableOfEvents"); 
+    const rowCount = tableOfEvents.rows.length;
+    document.getElementById("eventCount").innerHTML = `Filtered Events: ${rowCount}`;
+}
 
 // EVENT LISTENERS 
 //
