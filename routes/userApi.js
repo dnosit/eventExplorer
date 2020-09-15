@@ -7,7 +7,7 @@ router.get("/filter/:filters", function (req, res) {
   // receive current filter
   const { filters } = req.params;
   // API URLs
-  const bccEventsURL = "http://www.trumba.com/calendars/brisbane-city-council.json"; 
+  const bccEventsURL = "http://www.trumba.com/calendars/brisbane-city-council.json"; // NOTE: this is wrapped in an array
   const weatherRainProbabilty = `https://api.willyweather.com.au/v2/Y2MwYTdlOWVkNWI1YzViYzlmNjA5Yz/locations/5381/weather.json?forecasts=rainfallprobability&days=7&startDate=${getFormattedDate()}`;
   // execute simultaneous requests 
   axios.all([
@@ -16,13 +16,12 @@ router.get("/filter/:filters", function (req, res) {
     // Get weather API data, by filter type
     axios.get(weatherRainProbabilty)
   ])
-  .then(  responseArr  => {
+  .then( responseArr => {
     //this will be executed only when all requests are complete
-    const bccEventsData = responseArr[0]; 
-    const weatherData = responseArr[1]; 
+    const bccEventsData = responseArr[0].data;
+    const weatherData = responseArr[1].data;
     // Update events based on requested filter
     let updatedEventsIds = updateEventsByFilter(filters, bccEventsData, weatherData );
-    // res.render('index', { events: allEvents }); 
     res.json({ events: updatedEventsIds }); 
   })
   .catch( (error) => {
@@ -47,14 +46,25 @@ function updateEventsByFilter( filt, bccData, weatherData ){
 
 // Takes events and rain data
 // Returns list of events with low probability of rain 
-function filterByLowRain(bcc, rain){
+function filterByLowRain(bccData, rain){
   let updatedEvents = [];
 
-  const eventsSampleList = ["146421295", "145562147", "141019107"];
+  const eventsSampleList = [146804901, 146996308, 146906240, 145090320, 147136542];
   updatedEvents = eventsSampleList;
 
   return updatedEvents; 
 }
+
+
+
+
+// TODO REMOVE BELOW
+// TEMP function
+var toType = function(obj) {
+  return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
+}
+
+
 
 
 // HELPER FUNCTIONS
@@ -64,9 +74,10 @@ function filterByLowRain(bcc, rain){
 function getIdsFromBCCData(bccData){
   ids = [];
   // TODO 
-  
-  for (let eventID of Object.keys(bccData) ){
-    ids.push( bccData[eventID] );
+  for (let ev of bccData ){
+    // const evObj = JSON.parse(ev);
+    ids.push( ev.eventID );
+    //ids.push( ev.eventID.toString() );
   }
   return ids;
 }

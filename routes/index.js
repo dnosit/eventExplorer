@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
     .then( (response) => {
       const {data} = response;
       const allEvents = data; // array of each event data
-      // const eventsThisWeek = getEventsThisWeekInOrder(allEvents); 
+      eventsThisWeek = getEventsThisWeekInOrder(allEvents); 
       res.render('index', { events: allEvents }); 
     })
     .catch( (error) => {
@@ -20,15 +20,10 @@ router.get('/', (req, res) => {
 });
 
 
-// HELPER FUNCTIONS -  MOVE LATER 
-function getEventsByType(type){
-  // TODO - below
-  const eventsOfType = [];
 
-}
-
-
-
+// HELPER FUNCTIONS
+// TODO - adjust below to include entire day
+// currently seems to cut some events off starting/ending on day 
 function getEventsThisWeekInOrder(events){
   const millisecondsInWeek = 604800000; 
   const dateNowTimeStamp = Date.now(); // UNIX milliseconds 

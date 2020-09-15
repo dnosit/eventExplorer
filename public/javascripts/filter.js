@@ -13,11 +13,9 @@ const fetchFilteredEvents = (event) => {
         fetch(`/userApi/filter/${filters}`)
         .then(res => res.json())
         .then((data) => {
-            const eventsFiltered = data.events;
-
+            const eventsFilteredArr = data.events;
         // update elements as required 
-        removeRowsNotRequired(eventsFiltered)
-
+        removeRowsNotRequired(eventsFilteredArr)
         })
         .catch((error) => console.log(error));
     }
@@ -33,9 +31,10 @@ function removeRowsNotRequired(idListOfRows){
     // Save row ID's to delete
     let rowsToDeleteByID = []
     for ( let row of tableRows){
-        let currentRowID = row.id;
+        let currentRowID = row.id; 
         if ( currentRowID != "tableHeaderRow" ) {
-            if ( !(idListOfRows.includes(currentRowID)) ){
+            let currentRowIDInt = parseInt(currentRowID, 10); // radix = 10 for base 10 numeral system 
+            if ( !( idListOfRows.includes(currentRowIDInt)) ){
                 // This row need to be deleted, add to list 
                 rowsToDeleteByID.push(currentRowID);
             }
@@ -43,7 +42,7 @@ function removeRowsNotRequired(idListOfRows){
     }
     // remove rows on hit list from DOM 
     for (let rowID of rowsToDeleteByID){
-        let row = document.getElementById(rowID);
+        let row = document.getElementById( rowID );
         row.parentNode.removeChild(row);
     }
 };
