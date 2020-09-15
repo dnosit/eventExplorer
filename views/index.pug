@@ -4,38 +4,52 @@ block content
   h1 Brisbane Events Explorer
   h2 Find events for you!
   h3 Select your desired options below to ensure you're always at the best event in Brisvegas, at prime time. 
-  ul Filters
-    li Event type
-    li No rain
-    li UV protection not required
-    li None
-  p Up to 200 events shown, as per filters
-  table
-    tr
-      th Event
-      th Time
-      th Information
-      each event in events
-        tr
-          td
-            h4 !{event.title} 
-            if event.eventImage != NULL 
-              //- Make sure that eventImage is not null
-              - const eventImageObjString = JSON.stringify(event.eventImage)
-              - const eventImageObj = JSON.parse(eventImageObjString)
-              - let eventImageUrl = JSON.stringify(eventImageObj.url);
-              - let eventImageUrlCleaned = eventImageUrl.replace(/"/g, ""); //- remove double quotes from URL
-              img.image(src=eventImageUrlCleaned) 
-            else
-              div Image not found
-          td
-            p Starts: #{event.startDateTime}
-            p Ends: #{event.endDateTime}
-          td 
-            p !{event.description} 
-            br
-            p !{event.webLink}
+  ul Filter events:
+    li Type is: 
+      select.select
+        option(value="ANY") any type. 
+        option(value="FIT") fitness. 
+    li Max chance of rain: 
+      select.select
+          option(value=100) 100 
+          option(value=50) 50
+          option(value=20) 20
+          option(value=10) 10
+          option(value=5) 5
+          option(value=0) 0
+      | (%) 
+    li
+      button.resetFilters(value="RESET") Reset
+  p#eventCount Current Events: !{events.length} (Max for this week)
+  table#tableOfEvents
+    thead.tableHead
+      tr#tableHeaderRow
+        th Event
+        th Time
+        th Details
+        tbody.tableBody
+          each event in events
+            tr(id = event.eventID)
+              td
+                h4 !{event.title}  
+                if event.eventImage != NULL 
+                  //- Make sure that eventImage is in correct format
+                  - const eventImageObjString = JSON.stringify(event.eventImage)
+                  - const eventImageObj = JSON.parse(eventImageObjString)
+                  - let eventImageUrl = JSON.stringify(eventImageObj.url);
+                  - let eventImageUrlCleaned = eventImageUrl.replace(/"/g, ""); //- remove double quotes from URL
+                  img.image(src=eventImageUrlCleaned) 
+                else
+                  div Image not found
+              td
+                p Starts: !{event.startDateTime.replace(/T/g, "<br>")}
+                p Ends: !{event.endDateTime.replace(/T/g, "<br>")}
+              td 
+                p !{event.description} 
+                br
+                p !{event.webLink}
 
+  script(src='/javascripts/filter.js')
 
 
 

@@ -4,15 +4,15 @@ const router = express.Router();
 
 /* GET home page. */
 router.get('/', (req, res) => {
-  // JSON format returns the next 200 evernts 
+  // JSON format returns the next 200 events 
   const bccEventsURL = "http://www.trumba.com/calendars/brisbane-city-council.json";
 
   axios.get(bccEventsURL)
     .then( (response) => {
       const {data} = response;
       const allEvents = data; // array of each event data
-      const eventsThisWeek = getEventsThisWeekInOrder(allEvents); 
-      res.render('index', { events: eventsThisWeek }); 
+      eventsThisWeek = getEventsThisWeekInOrder(allEvents); 
+      res.render('index', { events: allEvents }); 
     })
     .catch( (error) => {
       res.render('error', { error });
@@ -20,13 +20,10 @@ router.get('/', (req, res) => {
 });
 
 
-// HELPER FUNCTIONS -  MOVE LATER 
-function getEventsByType(type){
-  // TODO - below
-  const eventsOfType = [];
 
-}
-
+// HELPER FUNCTIONS
+// TODO - adjust below to include entire day
+// currently seems to cut some events off starting/ending on day 
 function getEventsThisWeekInOrder(events){
   const millisecondsInWeek = 604800000; 
   const dateNowTimeStamp = Date.now(); // UNIX milliseconds 
