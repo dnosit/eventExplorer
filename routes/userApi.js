@@ -53,21 +53,25 @@ function filterByEventType(filt, bccData){
   if ( eventType == "ANY") {
     // get all ID's 
     updatedEventIds = getIdsFromBCCData(bccData); 
-
-    // TODO remove 
-    updatedEventIds.push("ALL VALUES RETURNED");
-
   }
   else {
     // Get events with required ID 
-
-    updatedEventIds.push(filt);
-    updatedEventIds.push(eventType);
-
+    for (let ev of bccData ){
+      for (let i of ev.customFields) {
+        if (i.label == "Event type"){
+          let value = i.value; 
+          let valuesAtomic = value.split(',', 100);
+          for (let val of valuesAtomic){
+            if (val == eventType ) {
+              updatedEventIds.push( ev.eventID );
+            }
+          }
+        }
+      }
+    }
   }
   return updatedEventIds;
 }
-
 
 
 // Takes events and rain data
@@ -156,26 +160,14 @@ function getDateTimesWithRainProbabilityAll(rainProbData){
 }
 
 
-// TODO REMOVE BELOW
-// TEMP function
-var toType = function(obj) {
-  return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
-}
-
-
-
-
 // HELPER FUNCTIONS
 //
 // Takes BCC API data
 // Returns list of ID's 
 function getIdsFromBCCData(bccData){
   ids = [];
-  // TODO 
   for (let ev of bccData ){
-    // const evObj = JSON.parse(ev);
     ids.push( ev.eventID );
-    //ids.push( ev.eventID.toString() );
   }
   return ids;
 }
@@ -190,5 +182,6 @@ function getFormattedDate(){
   return `${yyyy}-${mm}-${dd}`;
 }
 
-// export to router 
+// EXPORT 
+// To Router
 module.exports = router;
