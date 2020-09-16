@@ -20,9 +20,11 @@ router.get("/filter/:filters", function (req, res) {
     //this will be executed only when all requests are complete
     const bccEventsData = responseArr[0].data;
     const weatherData = responseArr[1].data;
-    // Update events based on requested filter
+    // Update event ID's and data based on requested filter
     let updatedEventsIds = updateEventsByFilter(filters, bccEventsData, weatherData );
-    res.json({ events: updatedEventsIds }); 
+    let updatedEventData = getEventDataFromIds(updatedEventsIds, bccEventsData);
+    // respond appropriately 
+    res.json({ eventData: updatedEventData }); 
   })
   .catch( (error) => {
     res.render('error', { error });
@@ -33,8 +35,10 @@ router.get("/filter/:filters", function (req, res) {
 //
 // Handles filter requests
 function updateEventsByFilter( filt, bccData, weatherData ){
-  let updatedEvents = [];
-  if ( filt == 0 || filt == 5 || filt == 10 || filt == 20 || filt == 50 || filt == 100 ) {
+  if (filt == "RESET"){
+    return getIdsFromBCCData(bccData); // All ID's 
+  }
+  else if ( filt == 0 || filt == 5 || filt == 10 || filt == 20 || filt == 50 || filt == 100 ) {
     return filterByRainProbability(bccData, weatherData, filt);
   }
   else if ( filt.split(':', 1)[0] == "Event type"){
@@ -162,10 +166,22 @@ function getDateTimesWithRainProbabilityAll(rainProbData){
 
 // HELPER FUNCTIONS
 //
+// Takes Array of event ID's and BCC API data
+// Returns Array of event data only for the ID's given 
+function getEventDataFromIds(ids, bccData){
+  let eventArr = [];
+  for (let ev of bccData ){
+    if ( ids.includes(ev.eventID) ){
+      eventArr.push( ev );
+    }
+  }
+  return eventArr;
+}
+
 // Takes BCC API data
-// Returns list of ID's 
+// Returns list of ALL ID's 
 function getIdsFromBCCData(bccData){
-  ids = [];
+  let ids = [];
   for (let ev of bccData ){
     ids.push( ev.eventID );
   }
