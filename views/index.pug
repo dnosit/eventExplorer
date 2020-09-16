@@ -6,9 +6,21 @@ block content
   h3 Select your desired options below to ensure you're always at the best event in Brisvegas, at prime time. 
   ul Filter events:
     li Type is: 
+      - const eventTypesSet = new Set();
+      each event in events
+        each i in event.customFields
+          if i.label == "Event type" 
+            - let value = i.value; 
+            - let valuesAtomic = value.split(',', 100);
+            each val in valuesAtomic 
+              - eventTypesSet.add(val)
       select.select
-        option(value="ANY") any type. 
-        option(value="FIT") fitness. 
+        option(value="Event type:ANY") ANY
+          - // Convert to Array first, since Pug can't seem to handle the set 
+          - eventTypesArr = Array.from(eventTypesSet);
+          each eventType in eventTypesArr
+            - let eventTypeWithPrefix = "Event type:" + eventType; 
+            option(value=eventTypeWithPrefix) !{eventType} 
     li Max chance of rain: 
       select.select
           option(value=100) 100 

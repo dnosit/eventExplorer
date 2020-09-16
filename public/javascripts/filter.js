@@ -2,59 +2,37 @@
 const fetchFilteredEvents = (event) => {
     const filters = event.target.value;
 
-    if ( filters == "RESET" ) {
-        // Refresh table with all updated events 
-        window.location.reload()
-        // TODO - refine to only reload table 
-        // tableElements = document.getElementById("tableOfEvents");
-        // tableElements.location.reload(true);
-    }
-    else {
-        fetch(`/userApi/filter/${filters}`)
-        .then(res => res.json())
-        .then((data) => {
-            const eventsFilteredArr = data.events;
-            // update elements as required 
-            removeRowsNotRequired(eventsFilteredArr)
-            // update count 
-            updateCount();
-        })
-        .catch((error) => console.log(error));
-    }
+    fetch(`/userApi/filter/${filters}`)
+    .then(res => res.json())
+    .then((data) => {
+        const eventsFilteredData = data.eventData;
+        updateRows(eventsFilteredData);
+    })
+    .catch((error) => console.log(error));
 };
 
-
-// takes array of id strings that should be displayed
-// deletes all current elements from DOM not in given array 
-function removeRowsNotRequired(idListOfRows){
-    // Current DOM elements
+// Updates rows to reflect filters 
+function updateRows( eventsData ){
+    // Remove current DOM elements
     const tableOfEvents = document.getElementById("tableOfEvents"); 
-    let tableRows = tableOfEvents.rows; 
-    // Save row ID's to delete
-    let rowsToDeleteByID = []
-    for ( let row of tableRows){
-        let currentRowID = row.id; 
-        if ( currentRowID != "tableHeaderRow" ) {
-            let currentRowIDInt = parseInt(currentRowID, 10); // radix = 10 for base 10 numeral system 
-            if ( !( idListOfRows.includes(currentRowIDInt)) ){
-                // This row need to be deleted, add to list 
-                rowsToDeleteByID.push(currentRowID);
-            }
-        }
+    const rows = tableOfEvents.rows;
+    const rowCount = rows.length;
+    // delete exising rows
+    for ( let rInd = rowCount-1; rInd > 0; rInd-- ){
+        tableOfEvents.deleteRow( rInd );
     }
-    // remove rows on hit list from DOM 
-    for (let rowID of rowsToDeleteByID){
-        let row = document.getElementById( rowID );
-        row.parentNode.removeChild(row);
+    // add updated rows from data 
+    tableBody = tableOfEvents.getElementsByTagName('tbody')[0]; 
+    for (let ev of eventsData){
+        let imageHTML = " "; 
+        imageHTML = `<img class="image" src="${ev.eventImage.url}"></img>`;
+        // insert
+        tableBody.insertRow().innerHTML = `<tr id="${ev.eventID}"><td><h4>${ev.title}</h4>${imageHTML}</td><td><p>Starts: ${ev.startDateTime.replace(/T/g, "<br>")}</p><p>Ends:${ev.endDateTime.replace(/T/g, "<br>")}</p></td><td><p>${ev.description}</p></td></tr>`;
     }
-};
-
-// Update count
-function updateCount(){
-    const tableOfEvents = document.getElementById("tableOfEvents"); 
-    const rowCount = tableOfEvents.rows.length;
-    document.getElementById("eventCount").innerHTML = `Filtered Events: ${rowCount}`;
+    // update row count
+    document.getElementById("eventCount").innerHTML = `Filtered Events: ${eventsData.length}`; // -1 for header row
 }
+
 
 // EVENT LISTENERS 
 //
