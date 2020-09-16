@@ -2,7 +2,6 @@ const express = require("express");
 const axios = require('axios');
 const router = express.Router();
 
-
 router.get("/filter/:filters", function (req, res) {
   // receive current filter
   const { filters } = req.params;
@@ -50,7 +49,6 @@ function updateEventsByFilter( filt, bccData, weatherData ){
   }
   else { return getIdsFromBCCData(bccData) }
 }
-
 
 // Takes event type filter 
 // Returns list of event ID's of required type 
@@ -137,7 +135,6 @@ function filterByRainProbability(bccData, rainProbData, probabilityMax){
   updatedEventIds.push(updatedEventIds.length);
   return updatedEventIds; 
 }
-
 
 // Returns date time strings which are below given p threshold
 function getDateTimesWithRainProbabilityBelowThreshold(rainProbData, rainThresholdProbability){

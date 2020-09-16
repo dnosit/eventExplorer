@@ -10,8 +10,7 @@ router.get('/', (req, res) => {
   axios.get(bccEventsURL)
     .then( (response) => {
       const {data} = response;
-      const allEvents = data; // array of each event data
-      eventsThisWeek = getEventsThisWeekInOrder(allEvents); 
+      const allEvents = data; // array of each events data
       res.render('index', { events: allEvents }); 
     })
     .catch( (error) => {
@@ -19,35 +18,5 @@ router.get('/', (req, res) => {
     })
 });
 
-
-
-// HELPER FUNCTIONS
-// TODO - adjust below to include entire day
-// currently seems to cut some events off starting/ending on day 
-function getEventsThisWeekInOrder(events){
-  const millisecondsInWeek = 604800000; 
-  const dateNowTimeStamp = Date.now(); // UNIX milliseconds 
-  const datePlusWeekTimeStamp = dateNowTimeStamp + millisecondsInWeek; 
-  const eventsThisWeek = []; 
-  for (let event of events){
-    const eventStartTimeStamp = Date.parse(event.startDateTime); 
-    const eventEndDateTimeStamp = Date.parse(event.endDateTime); 
-    // check for events that start within the next week
-    if ( dateNowTimeStamp <= eventStartTimeStamp && eventStartTimeStamp <= datePlusWeekTimeStamp ) {
-      eventsThisWeek.push(event);
-    } // check for events started but not finished in the next week
-    else if ( dateNowTimeStamp >= eventStartTimeStamp && eventEndDateTimeStamp <= datePlusWeekTimeStamp  ){
-      eventsThisWeek.push(event);
-    }
-  }
-  // sort events by start time before return 
-  eventsThisWeek.sort( function(x, y) {
-    Date.parse(x.startDateTime) - Date.parse(y.startDateTime);
-  });
-  return eventsThisWeek;
-};
-
-
-// END HELPER FUNCTIONS 
 
 module.exports = router;

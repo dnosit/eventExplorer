@@ -35,7 +35,6 @@ function updateRows( eventsData ){
     document.getElementById("eventCount").innerHTML = `Filtered Events: ${eventsData.length}`; // -1 for header row
 }
 
-
 // EVENT LISTENERS 
 //
 //  RESET filters Button 
@@ -48,8 +47,3 @@ const select = document.getElementsByClassName("select");
 for (let filter of select) {
     filter.addEventListener("change", (event) => fetchFilteredEvents(event));
 }
-
-
-
-
-
