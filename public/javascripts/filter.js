@@ -25,7 +25,9 @@ function updateRows( eventsData ){
     tableBody = tableOfEvents.getElementsByTagName('tbody')[0]; 
     for (let ev of eventsData){
         let imageHTML = " "; 
-        imageHTML = `<img class="image" src="${ev.eventImage.url}"></img>`;
+        if ( typeof ev.eventImage !== 'undefined' ){
+            imageHTML = `<img class="image" src="${ev.eventImage.url}"></img>`;
+        }
         // insert
         tableBody.insertRow().innerHTML = `<tr id="${ev.eventID}"><td><h4>${ev.title}</h4>${imageHTML}</td><td><p>Starts: ${ev.startDateTime.replace(/T/g, "<br>")}</p><p>Ends:${ev.endDateTime.replace(/T/g, "<br>")}</p></td><td><p>${ev.description}</p></td></tr>`;
     }
