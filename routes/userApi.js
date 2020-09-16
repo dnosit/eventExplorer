@@ -38,7 +38,11 @@ function updateEventsByFilter( filt, bccData, weatherData ){
   if (filt == "RESET"){
     return getIdsFromBCCData(bccData); // All ID's 
   }
-  else if ( filt == 0 || filt == 5 || filt == 10 || filt == 20 || filt == 50 || filt == 100 ) {
+  else if (filt == 100){
+    // all rain data 
+    return getIdsFromBCCData(bccData);
+  }
+  else if ( filt == 0 || filt == 5 || filt == 10 || filt == 20 || filt == 50 ) {
     return filterByRainProbability(bccData, weatherData, filt);
   }
   else if ( filt.split(':', 1)[0] == "Event type"){
@@ -46,7 +50,6 @@ function updateEventsByFilter( filt, bccData, weatherData ){
   }
   else { return getIdsFromBCCData(bccData) }
 }
-
 
 
 // Takes event type filter 
@@ -76,7 +79,6 @@ function filterByEventType(filt, bccData){
   }
   return updatedEventIds;
 }
-
 
 // Takes events and rain data
 // Returns list of events with low probability of rain 
@@ -162,7 +164,6 @@ function getDateTimesWithRainProbabilityAll(rainProbData){
   }
   return datesTimesRainProb;
 }
-
 
 // HELPER FUNCTIONS
 //
