@@ -2,11 +2,12 @@ Brisbane Events Explorer - Search for events, filtering by desired criteria, suc
 
 An assignment for CAB432 (Cloud Computing) at QUT (2020). 
 
-Written with NodeJS, using Pug and range of other NPM packages, then, using PM2, deployed in an autoscaling group with AWS elasctic load balancer. 
+Written with NodeJS, using Pug and range of other NPM packages, then, using PM2, deployed in an autoscaling group with AWS Elasctic Load Balancer. 
 
 
 
 ----------------------- Initial Project Proposal -----------------------
+
 Overall mashup purpose and description 
 The broad purpose of this application is to provide useful information about upcoming Brisbane events, to help users choose which events they will attend. 
 
