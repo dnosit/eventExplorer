@@ -9,13 +9,13 @@ router.get("/filter/:filters", function (req, res) {
   const { filters } = req.params;
   // API URLs
   const bccEventsURL = "http://www.trumba.com/calendars/brisbane-city-council.json"; // NOTE: this is wrapped in an array
-  const weatherRainProbabilty = `https://api.willyweather.com.au/v2/${process.env.WILLY_API_KEY}/locations/5381/weather.json?forecasts=rainfallprobability&days=7&startDate=${getFormattedDate()}`;
+  const weatherRainProbability = `https://api.willyweather.com.au/v2/${process.env.WILLY_API_KEY}/locations/5381/weather.json?forecasts=rainfallprobability&days=7&startDate=${getFormattedDate()}`;
   // execute simultaneous requests 
   axios.all([
     // Get JSON data from BCC - next 200 events
     axios.get(bccEventsURL),
     // Get weather API data, by filter type
-    axios.get(weatherRainProbabilty)
+    axios.get(weatherRainProbability)
   ])
   .then( responseArr => {
     //this will be executed only when all requests are complete
