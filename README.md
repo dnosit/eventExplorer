@@ -26,9 +26,8 @@ API’s to be used here include:
     RSS and XML, which would provide up to the next 1000 events. More information is available here: 
     https://www.data.brisbane.qld.gov.au/data/dataset/brisbane-city-council-events 
     b.	This API applies to user stories 1 & 2. 
-  2.	The Weather API current and forecast information for Brisbane. 
-    a.	The application will use the API’s JSON format, which provides 3 days of weather forecasts for free (up to 20,000
-    calls per month). More information is available here:  https://www.weatherapi.com 
+  2.	Willy Weather API current and forecast information for Brisbane. 
+    a.	The application will use the API’s JSON format, which provides the first 5000 calls for free. More information is available here:  https://www.willyweather.com.au/
 
 Processing will be done as much as practically possible on the server side. The technologies to be deployed will include using the Ubuntu OS (18.04 LTS), Node JS, REST/JSON API usage, express middleware all packaged in a Docker container, which will then be deployed onto an AWS eC2 Linux VM, via a private code repository. 
 
