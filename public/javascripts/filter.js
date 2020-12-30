@@ -17,7 +17,7 @@ function updateRows( eventsData ){
     const tableOfEvents = document.getElementById("tableOfEvents"); 
     const rows = tableOfEvents.rows;
     const rowCount = rows.length;
-    // delete exising rows
+    // delete existing rows
     for ( let rInd = rowCount-1; rInd > 0; rInd-- ){
         tableOfEvents.deleteRow( rInd );
     }
